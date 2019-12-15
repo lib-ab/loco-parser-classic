@@ -1,3 +1,39 @@
+# Why Fork? A quick explaination
+
+I will try to update this as I get time.
+
+qntm/loco or ferno/loco is an absolutely AMAZING project.  It quite frankly, in terms of usability overshadows both Doctrine's 
+Lexer, HOA's Compiler, and many other projects.  You can build DSL's using Loco in basically a matter of <strong>minutes</strong>
+
+Unfortunately, the project seems as if it was mostly abandoned by Mr. QNTM.  They don't seem to like PHP very much by their comments,
+and it hasn't been updated in nearly 4 years.  Additionally, it was <em>never</em> marked as stable.  Thus, it requires you to enable
+"dev" using composer to even use it.  So, this is a fix for that!
+
+Therefore, `ab/loco` will be available as a "stable" project for the forseeable future.   Minimal features MAY be added, however 
+the library is extremely complete.  There is very few reasons to add anything.  Only keep it up-to-date with PHP best practice.
+
+## AB's Fork To-Do
+
+ - [x] Fork, Setup Composer Package
+ - [ ] Migrate current unit tests to phpunit 
+ - [ ] Additional tests?
+ - [ ] Ensure `.gitattributes` excludes tests.
+ - [ ] Clean up examples: ensure example "tests" are being included in the real unit tests.  Clean up formatting, syntax.
+ - [ ] Split code to 1-class-per-file
+ - [ ] Ensure PSR-1, PSR-2, PSR-4, PSR-12 compatibility.
+ - [ ] Sit back and relax!
+
+ ### Feature
+
+As mentioned previously, I have no plans to greatly expand this library.  That would be ignorant.  It is an excellent library and 
+should generally be left alone.  The following MAY be added after careful consideration:
+
+ - [ ] JSON Parser using this library. -> Separate Project
+ - [ ] HTML Parser using this library. -> Separate Project 
+ - [ ] Performance tests between this and HOA/Compiler
+ - [ ] Ability to serialize xBNF generated parsers for ultra-fast parser generation.
+ - [ ] Extend Loco-BNF to include Bison-like syntax. (`{ code .. }` right-side for terminals)
+
 # Loco
 
 Loco is a parsing library for PHP.

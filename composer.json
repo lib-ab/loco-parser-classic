@@ -1,9 +1,10 @@
 {
-  "name": "ferno/loco",
+  "name": "ab/loco-parse",
+  "description": "The qntm.org loco lexer-parser (ferno/loco) modernized for PHP7.1+",
   "keywords": [
     "parser",
     "parsing",
-    "lexer"
+    "lexer", "compiler", "dsl", "doctrine", "hoa"
   ],
   "homepage": "http://qntm.org/loco",
   "require": {
