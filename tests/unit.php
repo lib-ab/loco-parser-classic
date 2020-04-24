@@ -9,7 +9,7 @@ namespace Ferno\Loco;
 
 use Exception;
 
-require_once __DIR__ . '/../src/Loco.php';
+require_once __DIR__ . '/../src/serialize_array.php';
 
 // if executing this file directly, run unit tests
 if(__FILE__ !== $_SERVER["SCRIPT_FILENAME"]) {
