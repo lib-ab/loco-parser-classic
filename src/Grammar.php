@@ -167,7 +167,7 @@ class Grammar extends \Ferno\Loco\MonoParser
     /**
      * S is the first
      */
-    public function firstSet()
+    public function firstSet(): array
     {
         return array($this->internals[$this->S]);
     }

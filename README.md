@@ -1,3 +1,31 @@
+# A.B.'s Loco Parsing Library
+
+This is a continuation of the `qtnm/loco` parsing library.
+
+There are two separately maintained forks: `backwards-compatible-x.x` and the version `x.x` versions.  
+
+The backwards-compatible version is compatible with `qtnm/loco` and is only maintained keeping up with PHP features, changes, and bugs.  No features will ever be added.
+
+The `ab/loco-parser` library is based on the [qtnm/loco](#) package which is no longer maintained.  Note that I also maintain a version backwards-compatible with the original at [ab/loco-legacy-parser](#).  
+
+The loco parser is a "parser generator", and is a highly looked-over parsing library.  In my personal opinion, it is one of the most powerful parsing libraries available.  You should be able to both lex & parse virtually any programming language, including LL(k).  Loco supports left recursion.
+
+The original library had several parsers available, but informally as examples.  I have released these as full standalone packages with updates, which will pull in the `ab/loco-parser` library.   
+
+- `ab/loco-parse-json`
+- `ab/loco-parse-bnf`
+- 
+
+
+
+It has been updated for PHP 7+ typing.  It maintains the `Ferno/Loco` namespace.
+
+If 
+
+
+
+
+
 # Why Fork? A quick explaination
 
 I will try to update this as I get time.
@@ -73,7 +101,7 @@ Finds the empty string (and always succeeds). Callback is passed no arguments. D
 
     new Ferno\Loco\EmptyParser();
     // returns null
-
+    
     new Ferno\Loco\EmptyParser(
       function() { return array(); }
     );
@@ -87,7 +115,7 @@ call each time. Default callback returns the first argument i.e. the string.
 
     new Ferno\Loco\StringParser("name");
     // returns "name"
-
+    
     new Ferno\Loco\StringParser(
       "name",
       function($string) { return strrev($string); }
@@ -111,7 +139,7 @@ only the first argument, the whole match.
 
     new Ferno\Loco\RegexParser("/^'([a-zA-Z_][a-zA-Z_0-9]*)'/");
     // returns the full match including the single quotes
-  
+      
     new Ferno\Loco\RegexParser(
       "/^'([a-zA-Z_][a-zA-Z_0-9]*)'/",
       function($match0, $match1) { return $match1; }
@@ -238,18 +266,18 @@ Here's a simple `Ferno\Loco\Grammar` which can recognise (some) valid HTML parag
             return $content;
           }
         ),
-
+    
         "OPEN_P" => new Ferno\Loco\StringParser("<p>"),
-
+    
         "CONTENT" => new Ferno\Loco\GreedyMultiParser(
           "UTF-8 CHAR",
           0,
           null,
           function() { return implode("", func_get_args()); }
         ),
-
+    
         "CLOSE_P" => new Ferno\Loco\StringParser("</p>"),
-
+    
         "UTF-8 CHAR" => new Ferno\Loco\LazyAltParser(
           array(
             new Ferno\Loco\Utf8Parser(array("<", ">", "&")),                         // match any UTF-8 character except <, > or &
@@ -260,7 +288,7 @@ Here's a simple `Ferno\Loco\Grammar` which can recognise (some) valid HTML parag
         ),
       )
     );
-  
+      
     $p->parse("<p>Your text here &amp; here &amp; &lt;here&gt;</p>");
     // returns "Your text here & here & <here>"
 
@@ -305,7 +333,7 @@ variables which I had to do myself. However, it gets the point across.
     <street-address> ::= <house-num> <street-name> <opt-apt-num> <EOL>
     <zip-part>       ::= <town-name> "," <state-code> <ZIP-code> <EOL>
     <opt-jr-part>    ::= "Sr." | "Jr." | <roman-numeral> | ""
-
+    
     <last-name>     ::= 'MacLaurin '
     <EOL>           ::= '\n'
     <initial>       ::= 'b'
@@ -360,7 +388,6 @@ This example grammar happens to be the grammar which describes Wirth syntax nota
 #### String in the sample grammar
 
     SYNTAX={PRODUCTION}.
-
 
 ---
 

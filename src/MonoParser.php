@@ -10,35 +10,47 @@ namespace Ferno\Loco;
  */
 abstract class MonoParser
 {
-    // A string form for any parser should be generated at instantiation time.
-    // This string should be *approximately* the "new MonoParser()" syntax,
-    // although stringifying the callback is problematic so don't bother trying.
-    // serialiseArray() helps with array arguments (var_export is no good because
-    // it leaves line breaks!)
+    /**
+     * A string form for any parser should be generated at instantiation time.
+     * This string should be *approximately* the "new MonoParser()" syntax,
+     * although stringifying the callback is problematic so don't bother trying.
+     * serialiseArray() helps with array arguments (var_export is no good because
+     * it leaves line breaks!)
+     */
     protected $string;
-    public function __toString()
-    {
-        return $this->string;
-    }
-    // An array of internal parsers, which are called recursively by and hence
-    // "exist inside of" this parser. These may be actual MonoParser
-    // objects.
-    // They may also be references to (i.e. string names of) other parsers
-    // elsewhere within the Grammar object within which $this presumably exists.
-    // The Grammar object will resolve() these strings into references
-    // to the real parsers at Grammar instantiation time.
-    // This list is empty for "static" parsers
+
+    /**
+     * An array of internal parsers, which are called recursively by and hence
+     * "exist inside of" this parser. These may be actual MonoParser
+     * objects.
+     * They may also be references to (i.e. string names of) other parsers
+     * elsewhere within the Grammar object within which $this presumably exists.
+     * The Grammar object will resolve() these strings into references
+     * to the real parsers at Grammar instantiation time.
+     * This list is empty for "static" parsers
+     *
+     * @var array
+     */
     public $internals;
-    // A function to apply to the result of whatever this parser just parsed.
-    // The arguments supplied to this callback depend on the parser class;
-    // check!
+
+    /**
+     * A function to apply to the result of whatever this parser just parsed.
+     * The arguments supplied to this callback depend on the parser class;
+     * check!
+     *
+     * @var callable
+     */
     public $callback;
+
+
     public abstract function defaultCallback();
+
     public function __construct($internals, $callback)
     {
-        if (!is_string($this->string)) {
-            throw new \Exception("You need to populate \$string");
-        }
+        // if (!is_string($this->string)) {
+        //     throw new \Exception("You need to populate \$string");
+        // }
+
         // Perform basic validation.
         if (!is_array($internals)) {
             throw new \Ferno\Loco\GrammarException(var_export($internals, true) . " should be an array");
@@ -71,7 +83,11 @@ abstract class MonoParser
     public function match($string, $i = 0)
     {
         $result = $this->getResult($string, $i);
-        return array("j" => $result["j"], "value" => call_user_func_array($this->callback, $result["args"]));
+
+        return array(
+            "j" => $result["j"],
+            "value" => call_user_func_array($this->callback, $result["args"])
+        );
     }
 
     /**
@@ -113,4 +129,28 @@ abstract class MonoParser
      * or "Called method of non-object" exceptions will arise
      */
     public abstract function firstSet();
+
+    /**
+     * Generate the PHP code necessary to re-build the current parser
+     */
+    final public function toCode(): string
+    {
+
+    }
+
+    /**
+     * Generate the PCRE-compatible regex to match the current parser.
+     *
+     * (Note: This is currently the following definition as not all are implemented.  Swich to abstract class when
+     * all the core parsers are ready)
+     */
+    public function toRegex(): string
+    {
+
+    }
+
+    public function __toString()
+    {
+        return static::class;
+    }
 }

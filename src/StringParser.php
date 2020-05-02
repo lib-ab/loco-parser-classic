@@ -7,13 +7,14 @@ namespace Ferno\Loco;
  * Match a static string.
  * Callback should accept a single argument which is the static string in question.
  */
-class StringParser extends \Ferno\Loco\StaticParser
+class StringParser extends StaticParser
 {
     private $needle;
+
     public function __construct($needle, $callback = null)
     {
         if (!is_string($needle)) {
-            throw new \Ferno\Loco\GrammarException("Can't create a " . get_class() . " with 'string' " . var_export($needle, true));
+            throw new GrammarException("Can't create a " . get_class() . " with 'string' " . var_export($needle, true));
         }
         $this->needle = $needle;
         $this->string = "new " . get_class() . "(" . var_export($needle, true) . ")";
@@ -27,12 +28,16 @@ class StringParser extends \Ferno\Loco\StaticParser
     {
         return func_get_arg(0);
     }
+
     public function getResult($string, $i = 0)
     {
         if (strpos($string, $this->needle, $i) === $i) {
-            return array("j" => $i + strlen($this->needle), "args" => array($this->needle));
+            return array(
+                "j" => $i + strlen($this->needle),
+                "args" => array($this->needle)
+            );
         }
-        throw new \Ferno\Loco\ParseFailureException($this . " could not find string " . var_export($this->needle, true), $i, $string);
+        throw new ParseFailureException($this . " could not find string " . var_export($this->needle, true), $i, $string);
     }
 
     /**

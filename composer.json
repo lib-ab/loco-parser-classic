@@ -26,13 +26,16 @@
   ],
   "homepage": "http://qntm.org/loco",
   "require": {
-    "php": ">=7.4",
-    "nikic/php-parser": "^4.4"
+    "php": ">=7.4"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.3",
     "jakub-onderka/php-parallel-lint": "0.*",
-    "symfony/var-dumper": "^5.0"
+    "symfony/var-dumper": "^5.0",
+    "nikic/php-parser": "^4.4",
+    "phpunit/phpunit": "^9.1",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "vimeo/psalm": "^3.11"
   },
   "scripts": {
     "check": "phpcs",
@@ -43,5 +46,6 @@
       "src/serialize_array.php"
     ]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "prefer-stable": true
 }

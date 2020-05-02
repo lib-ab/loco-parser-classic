@@ -37,7 +37,7 @@ class ConcParser extends \Ferno\Loco\MonoParser
     /**
      * First-set is built up as follows...
      */
-    public function firstSet()
+    public function firstSet(): array
     {
         $firstSet = array();
         foreach ($this->internals as $internal) {

@@ -19,7 +19,7 @@ class LazyAltParser extends \Ferno\Loco\MonoParser
             throw new \Ferno\Loco\GrammarException("Can't make a " . get_class() . " without at least one internal parser.\n");
         }
         $this->internals = $internals;
-        $this->string = "new " . get_class() . "(" . serialiseArray($internals) . ")";
+
         parent::__construct($internals, $callback);
     }
 
@@ -30,6 +30,7 @@ class LazyAltParser extends \Ferno\Loco\MonoParser
     {
         return func_get_arg(0);
     }
+
     public function getResult($string, $i = 0)
     {
         foreach ($this->internals as $internal) {
